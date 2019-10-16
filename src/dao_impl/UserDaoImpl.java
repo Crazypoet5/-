@@ -13,7 +13,7 @@ public class UserDaoImpl implements UserDao {
     public void addDao(User user) throws SQLException {
 
         QueryRunner qr = new QueryRunner (DataSourceUtils.getDataSource ());
-
+        System.out.println ("nihao1");
 
         String sql = "insert into user values(?,?,?,?,?,?,?,?,?,?)";
 
@@ -21,6 +21,7 @@ public class UserDaoImpl implements UserDao {
                 user.getName (), user.getEmail (), user.getTelephone (),
                 user.getBirthday (), user.getSex (), user.getState (),
                 user.getCode ());
+
     }
 
     @Override
