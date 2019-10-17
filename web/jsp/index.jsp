@@ -1,5 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -19,11 +21,12 @@
             	时间：2015-12-30
             	描述：菜单栏
             -->
-			<%@include file="head.jsp"%>
 			<!--
             	时间：2015-12-30
             	描述：导航条
             -->
+       <%@include file="head.jsp"%>
+
 
 
 			<!--
@@ -97,7 +100,7 @@
 						<a href="product_info.htm">
 							<img src="${i.pimage}" width="130" height="130" style="display: inline-block;">
 						</a>
-						<p><a href="product_info.html" style='color:#666'>${i.pname}</a></p>
+						<p><a href="product_info.html" style='color:#666'>${fn:substring(i.pname,0 ,10 )}...</a></p>
 						<p><font color="#E4393C" style="font-size:16px">${i.shop_price}</font></p>
 					</div>
 
@@ -137,7 +140,7 @@
                             <a href="product_info.htm">
                                 <img src="${i.pimage}" width="130" height="130" style="display: inline-block;">
                             </a>
-                            <p><a href="product_info.html" style='color:#666'>${i.pname}</a></p>
+                            <p><a href="product_info.html" style='color:#666'>${fn:substring(i.pname,0 ,10 )}...</a></p>
                             <p><font color="#E4393C" style="font-size:16px">${i.shop_price}</font></p>
                         </div>
 
@@ -175,3 +178,11 @@
 	</body>
 
 </html>
+<script>
+	$(function(){
+		//发送ajax请求
+		$.get("${pageContext.request.contextPath}/index?method=index",function(data){
+
+		},"json");
+	});
+</script>

@@ -49,41 +49,6 @@ font {
             	时间：2015-12-30
             	描述：导航条
             -->
-			<div class="container-fluid">
-				<nav class="navbar navbar-inverse">
-					<div class="container-fluid">
-						<!-- Brand and toggle get grouped for better mobile display -->
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-							<a class="navbar-brand" href="#">首页</a>
-						</div>
-
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav">
-								<li class="active"><a href="#">手机数码<span class="sr-only">(current)</span></a></li>
-								<li><a href="#">电脑办公</a></li>
-								<li><a href="#">电脑办公</a></li>
-								<li><a href="#">电脑办公</a></li>
-							</ul>
-							<form class="navbar-form navbar-right" role="search">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Search">
-								</div>
-								<button type="submit" class="btn btn-default">Submit</button>
-							</form>
-
-						</div>
-						<!-- /.navbar-collapse -->
-					</div>
-					<!-- /.container-fluid -->
-				</nav>
-			</div>
 
 	
 	
@@ -107,13 +72,13 @@ font {
  <div class="form-group">
     <label for="username" class="col-sm-2 control-label">用户名</label>
     <div class="col-sm-6">
-      <input type="text" class="form-control" id="username" placeholder="请输入用户名" name="username">
+      <input type="text" class="form-control" id="username" placeholder="请输入用户名" name="username" value="${last_login_name}">
     </div>
   </div>
    <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
     <div class="col-sm-6">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="请输入密码" name="password">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="请输入密码" name="password" value="${last_login_pw}">
     </div>
   </div>
    <div class="form-group">
@@ -130,10 +95,10 @@ font {
     <div class="col-sm-offset-2 col-sm-10">
       <div class="checkbox">
         <label>
-          <input type="checkbox" name="autoLogin"> 自动登录
+          <input type="checkbox" name="autoLogin" value="yes">  自动登录
         </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <label>
-          <input type="checkbox" name="memory"> 记住用户名
+          <input type="checkbox" name="memory" value="yes"> 记住用户名
         </label>
       </div>
     </div>
@@ -171,4 +136,11 @@ font {
 		<div style="text-align: center;margin-top: 5px;margin-bottom:20px;">
 			Copyright &copy; 2005-2016 传智商城 版权所有
 		</div>
-</body></html>
+</body>
+
+</html>
+
+<script>
+
+
+</script>

@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/index"})
-public class indexServlet extends BaseServlet {
+public class IndexServlet extends BaseServlet {
 
     public String  index(HttpServletRequest request, HttpServletResponse response) throws SQLException {
             ProductService ps=new ProductServiceImpl ();

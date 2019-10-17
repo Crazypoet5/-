@@ -12,15 +12,15 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     @Override
     public List getNewProduct() throws SQLException {
-        ProductDao pd= new ProductDaoImpl ();
-        List <Product>list  = pd.getNewProduct ();
+        ProductDao pd = new ProductDaoImpl ();
+        List<Product> list = pd.getNewProduct ();
         return list;
     }
 
     @Override
     public List getHostProduct() throws SQLException {
 
-        ProductDao pd=new ProductDaoImpl();
+        ProductDao pd = new ProductDaoImpl ();
 
         List hostProduct = pd.getHostProduct ();
 

@@ -7,15 +7,20 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import service.UserService;
 import service_impl.UserServiceImpl;
+import utils.CookUtils;
 import utils.MD5Utils;
 import utils.UUIDUtils;
 
+import javax.mail.Header;
 import javax.servlet.DispatcherType;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
@@ -79,37 +84,89 @@ public class UserServlet extends BaseServlet {
             request.setAttribute ("msg", "激活成功<a href=http://localhost:8080/store/jsp/login.jsp>点这里登陆</a>");
         return "/jsp/msg.jsp";
     }
-    public String login(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-          String username=request.getParameter ("username");
 
-          String password=request.getParameter("password");
+    public String login(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 
-          password = MD5Utils.md5 (password);
-        System.out.println (password);
+          //获取浏览器中存储的cookies
+        Cookie cookies[] = request.getCookies ();
+      //通过CookUtils获取相应的cookie
+        Cookie cookie = CookUtils.getCookieByName ("username", cookies);
+        Cookie cookiep = CookUtils.getCookieByName ("password", cookies);
+      //判断相应的cookie是否为空
+        if (cookie != null && cookiep != null) {
+            //如果不为空，说明之前已经登陆过且选择了自动登陆
+            //开始调用服务方法
+            UserService userService = new UserServiceImpl ();
 
-          UserService userService=new UserServiceImpl ();
-
-          User login = userService.login (username, password);
-
-        if(login==null){
-
-           request.setAttribute ("msg","用户账户名或者密码错误");
-           return "/jsp/login.jsp";
-        }
-       else {
-            if (login.getState ()==0) {
-                request.setAttribute ("msg", "请前往邮箱激活");
+            User login = userService.login (cookie.getValue (), cookiep.getValue ());
+            if (login == null) {
+                request.setAttribute ("msg", "用户账户名或者密码错误");
                 return "/jsp/login.jsp";
             }
-            else
-            request.setAttribute ("msg", "登陆成功");
-       }
-     request.getSession ().setAttribute ("username",username);
-            return "/jsp/index.jsp";
-    }
-    public String logOut(HttpServletRequest request, HttpServletResponse response){
+            request.getSession ().setAttribute ("username", cookie.getValue ());
 
-        HttpSession session=request.getSession ();
+        } else {
+            //如果不存在
+            String username = request.getParameter ("username");
+
+            String password = request.getParameter ("password");
+
+            String password1 = password;
+            password = MD5Utils.md5 (password);
+
+
+            UserService userService = new UserServiceImpl ();
+
+            User login = userService.login (username, password);
+
+
+            if (login == null) {
+
+                request.setAttribute ("msg", "用户账户名或者密码错误");
+                return "/jsp/login.jsp";
+            } else {
+                if (login.getState () == 0) {
+                    request.setAttribute ("msg", "请前往邮箱激活");
+                    return "/jsp/login.jsp";
+                } else {
+                    {
+
+                        request.getSession ().setAttribute ("last_login_name", username);
+                        request.getSession ().setAttribute ("last_login_pw", password1);
+                        String flag = request.getParameter ("autoLogin");
+                         //如果用户勾选了自动登陆
+                        //我们可以利用cookie去实现它
+                        if ("yes".equals (flag)) {
+                            Cookie cname = new Cookie ("username", username);
+
+                            Cookie cpw = new Cookie ("password", password);
+
+                            cname.setPath (request.getRequestURI () + "/");
+
+                            cpw.setPath (request.getRequestURI () + "/");
+                            cname.setMaxAge (60 * 60);
+                            cpw.setMaxAge (60 * 60);
+                            response.addCookie (cname);
+
+                            response.addCookie (cpw);
+
+                        }
+
+                    }
+
+                }
+            }
+            request.getSession ().setAttribute ("username", username);
+        }
+        //请求重定向到index页面，这里不要用请求转发，有个bug,因为要用到的信息都被我保存在了session中，
+        //请求重定向也可以
+           response.sendRedirect (request.getContextPath ()+"/index");
+        return null;
+    }
+
+    public String logOut(HttpServletRequest request, HttpServletResponse response) {
+
+        HttpSession session = request.getSession ();
 
         session.removeAttribute ("username");
 
