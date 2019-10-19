@@ -26,4 +26,11 @@ public class ProductServiceImpl implements ProductService {
 
         return hostProduct;
     }
+
+    @Override
+    public Product getById(String id) throws SQLException {
+        ProductDao pd = new ProductDaoImpl ();
+        Product pro = pd.getById (id);
+        return pro;
+    }
 }

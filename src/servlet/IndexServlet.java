@@ -17,7 +17,7 @@ import java.util.List;
 public class IndexServlet extends BaseServlet {
 
     public String  index(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-            ProductService ps=new ProductServiceImpl ();
+        ProductService ps=new ProductServiceImpl ();
 
         List hostProduct = ps.getHostProduct ();
 

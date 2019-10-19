@@ -86,12 +86,17 @@ font {
     <div class="col-sm-3">
       <input type="text" class="form-control" id="inputPassword3" placeholder="请输入验证码" name="code">
     </div>
+
     <div class="col-sm-3">
-      <img src="${pageContext.request.contextPath}/image/captcha.jhtml"/>
+        <a href="${pageContext.request.contextPath}/jsp/login.jsp">
+      <img id="img" src="${pageContext.request.contextPath}/code"/>
+        </a>
+        <a href="#" onclick="reload('${pageContext.request.contextPath}/code')"> 看不清</a>
+
     </div>
-    
-  </div>
-   <div class="form-group">
+   </div>
+
+    <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <div class="checkbox">
         <label>
@@ -141,6 +146,8 @@ font {
 </html>
 
 <script>
-
+ function reload(imgSrc) {
+     document.getElementById("img").src=imgSrc+"?id"+Math.random();
+ }
 
 </script>

@@ -97,10 +97,10 @@
 				   <c:forEach var="i" items="${hp}" >
 
                        <div class="col-md-2" style="text-align:center;height:200px;padding:10px 0px;">
-						<a href="product_info.htm">
+						<a href="${pageContext.request.contextPath}/product?method=getById&id=${i.pid}">
 							<img src="${i.pimage}" width="130" height="130" style="display: inline-block;">
 						</a>
-						<p><a href="product_info.html" style='color:#666'>${fn:substring(i.pname,0 ,10 )}...</a></p>
+						<p><a href="${pageContext.request.contextPath}/product?method=getById&id=${i.pid}" style='color:#666'>${fn:substring(i.pname,0 ,10 )}...</a></p>
 						<p><font color="#E4393C" style="font-size:16px">${i.shop_price}</font></p>
 					</div>
 
@@ -130,17 +130,17 @@
 
                 <div class="col-md-10">
 					<div class="col-md-6" style="text-align:center;height:200px;padding:0px;">
-						<a href="product_info.htm">
+						<a href="#">
 							<img src="${pageContext.request.contextPath}/products/hao/middle01.jpg" width="516px" height="200px" style="display: inline-block;">
 						</a>
 					</div>
                     <c:forEach var="i" items="${np}" >
 
                         <div class="col-md-2" style="text-align:center;height:200px;padding:10px 0px;">
-                            <a href="product_info.htm">
+                            <a href="${pageContext.request.contextPath}/product?method=getById&id=${i.pid}">
                                 <img src="${i.pimage}" width="130" height="130" style="display: inline-block;">
                             </a>
-                            <p><a href="product_info.html" style='color:#666'>${fn:substring(i.pname,0 ,10 )}...</a></p>
+                            <p><a href="${pageContext.request.contextPath}/product?method=getById&id=${i.pid}" style='color:#666'>${fn:substring(i.pname,0 ,10 )}...</a></p>
                             <p><font color="#E4393C" style="font-size:16px">${i.shop_price}</font></p>
                         </div>
 
