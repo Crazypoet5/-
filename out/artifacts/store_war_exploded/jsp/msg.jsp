@@ -25,7 +25,7 @@
             	时间：2015-12-30
             	描述：导航条
             -->
-
+			<h1>${msg}</h1>
 		<div class="container-fluid">
 				<div style="margin-top:50px;">
 					<img src="${pageContext.request.contextPath}/img/footer.jpg" width="100%" height="78" alt="我们的优势" title="我们的优势" />

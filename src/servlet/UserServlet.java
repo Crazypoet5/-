@@ -157,6 +157,7 @@ public class UserServlet extends BaseServlet {
                 }
             }
             request.getSession ().setAttribute ("username", username);
+            request.getSession ().setAttribute ("user",login);
         }
         //请求重定向到index页面，这里不要用请求转发，有个bug,因为要用到的信息都被我保存在了session中，
         //请求重定向也可以

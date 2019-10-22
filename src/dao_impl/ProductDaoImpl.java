@@ -16,7 +16,7 @@ public class ProductDaoImpl  implements ProductDao {
 
         QueryRunner qr=new QueryRunner (DataSourceUtils.getDataSource ());
 
-        String sql="select * from product order by pdate limit 9";
+        String sql="select * from product Order by pdate limit 9";
 
         return qr.query ( sql,new BeanListHandler<> (Product.class));
     }

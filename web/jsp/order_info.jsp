@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html>
 
@@ -47,7 +48,7 @@
 					<table class="table table-bordered">
 						<tbody>
 							<tr class="warning">
-								<th colspan="5">订单编号:9005 </th>
+								<th colspan="5">订单编号:${order.oid}</th>
 							</tr>
 							<tr class="warning">
 								<th>图片</th>
@@ -56,30 +57,32 @@
 								<th>数量</th>
 								<th>小计</th>
 							</tr>
+							<c:forEach var="o" items="${order.itemList }">
 							<tr class="active">
 								<td width="60" width="40%">
 									<input type="hidden" name="id" value="22">
-									<img src="${pageContext.request.contextPath}/image/dadonggua.jpg" width="70" height="60">
+									<img src="${pageContext.request.contextPath}/${o.product.pimage}" width="70" height="60">
 								</td>
 								<td width="30%">
-									<a target="_blank"> 有机蔬菜      大冬瓜...</a>
+									<a target="_blank">${o.product.pname}</a>
 								</td>
 								<td width="20%">
-									￥298.00
+										${o.product.shop_price}
 								</td>
 								<td width="10%">
-									5
+									${o.count}
 								</td>
 								<td width="15%">
-									<span class="subtotal">￥596.00</span>
+									<span class="subtotal">${o.subTotal}</span>
 								</td>
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 
 				<div style="text-align:right;margin-right:120px;">
-					商品金额: <strong style="color:#ff6600;">￥596.00元</strong>
+					商品金额: <strong style="color:#ff6600;">${order.total}</strong>
 				</div>
 
 			</div>
